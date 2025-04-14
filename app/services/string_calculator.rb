@@ -6,12 +6,17 @@ class StringCalculator
     if numbers.start_with?("//")
       delimiter, numbers = numbers.split("\n", 2)
       delimiter = delimiter[2..-1] # Extract the delimiter
-      numbers = numbers.split(delimiter).map(&:to_i).sum
+      numbers = numbers.split(delimiter).map(&:to_i)
     else
       # Handle default comma and newline delimiters
-      numbers = numbers.split(/[\n,]/).map(&:to_i).sum
+      numbers = numbers.split(/[\n,]/).map(&:to_i)
     end
 
-    numbers
+    negatives = numbers.select { |num| num < 0 }
+    if negatives.any?
+      raise "negative numbers not allowed: #{negatives.join(', ')}"
+    end
+
+    numbers.sum
   end
 end
