@@ -14,7 +14,7 @@ class StringCalculator
 
     negatives = numbers.select { |num| num < 0 }
     if negatives.any?
-      raise "negative numbers not allowed: #{negatives.join(', ')}"
+      raise ArgumentError, "negative numbers not allowed: #{negatives.join(', ')}"
     end
 
     numbers.sum
